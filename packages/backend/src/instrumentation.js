@@ -13,7 +13,6 @@ const {
 
 const traceExporterOptions = {
   url: 'https://ingest.in.signoz.cloud:443/v1/traces'
-  //url:'http://localhost:4318/v1/traces' //sending to otel-desktop-viewer
 }
 
 const metricExporterOptions = {
@@ -21,13 +20,13 @@ const metricExporterOptions = {
 }
 
 const metricReader = new PeriodicExportingMetricReader({
-  exporter: metricExporterOptions,
+  exporter: new OTLPMetricExporter(metricExporterOptions),
   // Default is 60000ms (60 seconds). Set to 10 seconds for demonstrative purposes only.
   exportIntervalMillis: 10000,
 });
 
 // By default exports the metrics on localhost:9464/metrics
-// const prometheus = new PrometheusExporter();
+const prometheus = new PrometheusExporter();
 
 const sdk = new NodeSDK({
   // You can add a traceExporter field here too
