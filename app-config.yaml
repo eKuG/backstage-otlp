@@ -44,6 +44,10 @@ integrations:
     #   token: ${GHE_TOKEN}
 
 proxy:
+  '/launchdarkly/api':
+    target: https://app.launchdarkly.com/api
+    headers:
+      Authorization: api-590fbcfd-2199-4018-a255-42d6a1a29251
   ### Example for how to add a proxy endpoint for the frontend.
   ### A typical reason to do this is to handle HTTPS and CORS for internal services.
   # endpoints:
@@ -106,6 +110,16 @@ catalog:
   # Experimental: Always use the search method in UrlReaderProcessor.
   # New adopters are encouraged to enable it as this behavior will be the default in a future release.
   useUrlReadersSearch: true
+  
+npm:
+  defaultRegistry: npmjs
+  registries:
+    - name: npmjs
+      url: https://registry.npmjs.com
+    - name: github
+      url: https://npm.pkg.github.com
+    - name: gitlab
+      url: https://gitlab.com/api/v4/packages/npm
 
 kubernetes:
   # see https://backstage.io/docs/features/kubernetes/configuration for kubernetes configuration options
